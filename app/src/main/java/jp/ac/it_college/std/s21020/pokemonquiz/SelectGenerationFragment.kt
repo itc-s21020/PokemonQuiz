@@ -21,12 +21,8 @@ class SelectGenerationFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentSelectGenerationBinding.inflate(inflater, container, false)
-        val inputStream =
-            getActivity()?.getApplicationContext()?.resources?.assets?.open("filtered_pokedex.json")
-        val jsonReader = InputStreamReader(inputStream, "UTF-8").readText()
-        val json = Gson().fromJson(jsonReader, datafileRoot::class.java)
 //        val list = json.pokedex.map { g -> g.name }
-        val list = json.pokedex
+        val list = pokedex.pokedex
         for (i in list) {
             val button = Button(binding.root.context)
             button.text = i.name
