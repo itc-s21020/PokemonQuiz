@@ -29,11 +29,12 @@ class ResultFragment : Fragment() {
 
         binding.back.setOnClickListener {
             Navigation.findNavController(it).navigate(
-                ResultFragmentDirections.resultToSelect()
+                ResultFragmentDirections.resultToTitle()
             )
         }
         val score = args.score
         binding.resultCount.text = getString(R.string.score, score)
+        binding.tvMode.text = if (args.hardmode) getString(R.string.hard) else getString(R.string.easy)
 
         return binding.root
     }

@@ -22,6 +22,9 @@
         <action
             android:id="@+id/generation_to_quiz"
             app:destination="@id/quizFragment" />
+        <argument
+            android:name="hardmode"
+            app:argType="boolean" />
     </fragment>
     <fragment
         android:id="@+id/quizFragment"
@@ -44,6 +47,9 @@
             android:name="score"
             app:argType="integer"
             android:defaultValue="0" />
+        <argument
+            android:name="hardmode"
+            app:argType="boolean" />
     </fragment>
     <fragment
         android:id="@+id/resultFragment"
@@ -51,10 +57,13 @@
         android:label="fragment_result"
         tools:layout="@layout/fragment_result" >
         <action
-            android:id="@+id/resultToSelect"
-            app:destination="@id/selectGenerationFragment" />
+            android:id="@+id/resultToTitle"
+            app:destination="@id/titleFragment" />
         <argument
             android:name="score"
             app:argType="integer" />
+        <argument
+            android:name="hardmode"
+            app:argType="boolean" />
     </fragment>
 </navigation>

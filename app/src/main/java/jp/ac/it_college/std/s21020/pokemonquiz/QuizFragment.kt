@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.annotation.UiThread
 import androidx.annotation.WorkerThread
 import androidx.lifecycle.lifecycleScope
@@ -52,26 +53,15 @@ class QuizFragment : Fragment() {
 
         val idpoke = args.idList
         val seikai = idpoke.random()
+        val answerName = pokemon.pokemon.filter { p -> p.id == seikai }[0].name
         showPokemonInfo(seikai)
 
         val qCount = args.qCount
         var score = args.score
         binding.tvQCount.text = getString(R.string.q_count, qCount)
 
-        val list = listOf(
-            binding.button,
-            binding.button2,
-            binding.button3,
-            binding.button4
-        ).shuffled()
-
-
-
-        list[0].text = pokemon.pokemon.filter { p -> p.id == seikai }[0].name
-        list[1].text = pokemon.pokemon.filter { p -> p.id != seikai }.random().name
-        list[2].text = pokemon.pokemon.filter { p -> p.id != seikai }.random().name
-        list[3].text = pokemon.pokemon.filter { p -> p.id != seikai }.random().name
         var clicked = false
+
 
         class ClickListener(val right: Boolean) : View.OnClickListener {
 
@@ -80,12 +70,14 @@ class QuizFragment : Fragment() {
                 if (right) {
                     score++
                 } else {
+                    Toast.makeText(context, getString(R.string.toast_miss, answerName), Toast.LENGTH_SHORT).show()
                 }
 
                 if (qCount < 10) {
                     Navigation.findNavController(view).navigate(
                         QuizFragmentDirections.quizToQuiz(
-                            args.idList
+                            args.idList,
+                            args.hardmode
                         ).apply {
                             setQCount(args.qCount + 1)
                             setScore(score)
@@ -93,18 +85,48 @@ class QuizFragment : Fragment() {
                     )
                 } else {
                     Navigation.findNavController(view).navigate(
-                        QuizFragmentDirections.quizToResult(score)
+                        QuizFragmentDirections.quizToResult(score, args.hardmode)
                     )
                 }
             }
         }
-        list[0].setOnClickListener(ClickListener(true))
-        list[1].setOnClickListener(ClickListener(false))
-        list[2].setOnClickListener(ClickListener(false))
-        list[3].setOnClickListener(ClickListener(false))
+
+        if (!args.hardmode) {
+            binding.etAnswer.visibility = View.INVISIBLE
+            binding.btAnswer.visibility = View.INVISIBLE
+            val list = listOf(
+                binding.button,
+                binding.button2,
+                binding.button3,
+                binding.button4
+            ).shuffled()
+            list[0].text = pokemon.pokemon.filter { p -> p.id == seikai }[0].name
+            list[1].text = pokemon.pokemon.filter { p -> p.id != seikai }.random().name
+            list[2].text = pokemon.pokemon.filter { p -> p.id != seikai }.random().name
+            list[3].text = pokemon.pokemon.filter { p -> p.id != seikai }.random().name
+            list[0].setOnClickListener(ClickListener(true))
+            list[1].setOnClickListener(ClickListener(false))
+            list[2].setOnClickListener(ClickListener(false))
+            list[3].setOnClickListener(ClickListener(false))
+        }else {
+          binding.button.visibility = View.INVISIBLE
+          binding.button2.visibility = View.INVISIBLE
+          binding.button3.visibility = View.INVISIBLE
+          binding.button4.visibility = View.INVISIBLE
+          binding.btAnswer.setOnClickListener {
+              val answer = binding.etAnswer.text.toString()
+              if (answer.isEmpty()) {
+                  return@setOnClickListener
+              }
+              ClickListener(answerName == answer).onClick(null)
+          }
+        }
+
+
+
         val h = Handler(Looper.getMainLooper())
         h.postDelayed(object : Runnable {
-            var count = 10
+            var count = if (args.hardmode) 30 else 10
             override fun run() {
                 if (clicked) {
                     return

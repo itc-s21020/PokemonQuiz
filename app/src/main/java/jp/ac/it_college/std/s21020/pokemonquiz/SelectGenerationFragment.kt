@@ -7,11 +7,13 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import androidx.navigation.Navigation
+import androidx.navigation.fragment.navArgs
 import jp.ac.it_college.std.s21020.pokemonquiz.databinding.FragmentSelectGenerationBinding
 
 class SelectGenerationFragment : Fragment() {
     private var _binding: FragmentSelectGenerationBinding? = null
     private val binding get() = _binding!!
+    private val args: SelectGenerationFragmentArgs by navArgs()
 
 
     override fun onCreateView(
@@ -28,7 +30,8 @@ class SelectGenerationFragment : Fragment() {
             button.setOnClickListener {
                 Navigation.findNavController(it).navigate(
                     SelectGenerationFragmentDirections.generationToQuiz(
-                        i.entries.map { p -> p.pokemon_id }.toIntArray()
+                        i.entries.map { p -> p.pokemon_id }.toIntArray(),
+                        args.hardmode
                     )
                 )
             }

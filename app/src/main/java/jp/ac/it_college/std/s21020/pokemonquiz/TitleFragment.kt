@@ -18,9 +18,15 @@ class TitleFragment : Fragment() {
     ): View {
         _binding = FragmentTitleBinding.inflate(inflater,container, false)
 
-        binding.start.setOnClickListener{
+        binding.btEasy.setOnClickListener{
             Navigation.findNavController(it).navigate(
-                TitleFragmentDirections.titleToSelect()
+                TitleFragmentDirections.titleToSelect(false)
+            )
+        }
+
+        binding.btHard.setOnClickListener{
+            Navigation.findNavController(it).navigate(
+                TitleFragmentDirections.titleToSelect(true)
             )
         }
 

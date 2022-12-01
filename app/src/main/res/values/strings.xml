@@ -6,7 +6,12 @@
     <string name="start_button">スタート</string>
     <string name="select">世代を選択</string>
     <string name="q_count">%d問目</string>
-    <string name="back">世代選択へ戻る</string>
+    <string name="back">タイトルへ戻る</string>
     <string name="score">%d / 10</string>
     <string name="timer">%d</string>
+    <string name="input_answer">ポケモンの名前を入力</string>
+    <string name="answer">回答</string>
+    <string name="easy">イージー</string>
+    <string name="hard">ハード</string>
+    <string name="toast_miss">間違い！　正解は%s！</string>
 </resources>
