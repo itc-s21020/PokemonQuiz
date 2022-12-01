@@ -5,4 +5,8 @@
     <string name="quiz_title">ポケモンクイズ</string>
     <string name="start_button">スタート</string>
     <string name="select">世代を選択</string>
+    <string name="q_count">%d問目</string>
+    <string name="back">世代選択へ戻る</string>
+    <string name="score">%d / 10</string>
+    <string name="timer">%d</string>
 </resources>

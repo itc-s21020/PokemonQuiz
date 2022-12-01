@@ -28,4 +28,6 @@ class MainActivity : AppCompatActivity() {
         pokedex = Gson().fromJson(jsonReader2, PokedexJson::class.java)
 
     }
+
+    override fun onBackPressed() {}
 }

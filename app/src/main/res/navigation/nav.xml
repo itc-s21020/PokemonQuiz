@@ -30,5 +30,31 @@
         tools:layout="@layout/fragment_quiz" >
         <argument android:name="idList"
             app:argType="integer[]" />
+        <argument
+            android:name="qCount"
+            app:argType="integer"
+            android:defaultValue="1" />
+        <action
+            android:id="@+id/quizToQuiz"
+            app:destination="@id/quizFragment" />
+        <action
+            android:id="@+id/quizToResult"
+            app:destination="@id/resultFragment" />
+        <argument
+            android:name="score"
+            app:argType="integer"
+            android:defaultValue="0" />
+    </fragment>
+    <fragment
+        android:id="@+id/resultFragment"
+        android:name="jp.ac.it_college.std.s21020.pokemonquiz.ResultFragment"
+        android:label="fragment_result"
+        tools:layout="@layout/fragment_result" >
+        <action
+            android:id="@+id/resultToSelect"
+            app:destination="@id/selectGenerationFragment" />
+        <argument
+            android:name="score"
+            app:argType="integer" />
     </fragment>
 </navigation>

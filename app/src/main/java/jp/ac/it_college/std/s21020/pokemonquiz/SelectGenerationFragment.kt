@@ -8,8 +8,6 @@ import android.view.ViewGroup
 import android.widget.Button
 import androidx.navigation.Navigation
 import jp.ac.it_college.std.s21020.pokemonquiz.databinding.FragmentSelectGenerationBinding
-import java.io.InputStreamReader
-import com.google.gson.Gson
 
 class SelectGenerationFragment : Fragment() {
     private var _binding: FragmentSelectGenerationBinding? = null
@@ -19,7 +17,7 @@ class SelectGenerationFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentSelectGenerationBinding.inflate(inflater, container, false)
 //        val list = json.pokedex.map { g -> g.name }
         val list = pokedex.pokedex
@@ -37,10 +35,5 @@ class SelectGenerationFragment : Fragment() {
 
         }
         return binding.root
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
     }
 }
